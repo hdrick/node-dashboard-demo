@@ -1,0 +1,16 @@
+{
+  "name": "dashboard-demo",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "keywords": [],
+  "author": "Hendwrick Gonzales",
+  "license": "ISC",
+  "description": "Simple dashboard demo for Jenkins CI/CD testing",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
