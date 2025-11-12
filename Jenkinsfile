@@ -4,24 +4,29 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main',
-                    credentialsId: 'github-ssh-key',
-                    url: 'git@github.com:hdrick/node-dashboard-demo.git'
+                sshagent(['github-ssh-key']) {
+                    // Clone the repository if it doesn't exist
+                    sh '''
+                    if [ ! -d node-dashboard-demo ]; then
+                        git clone git@github.com:hdrick/node-dashboard-demo.git
+                    fi
+                    cd node-dashboard-demo
+                    git fetch --all
+                    git checkout main
+                    '''
+                }
             }
         }
-
 
         stage('Build') {
             steps {
                 echo 'Building project...'
-                // Add build commands
             }
         }
 
         stage('Test') {
             steps {
                 echo 'Running tests...'
-                // Add test commands
             }
         }
     }
