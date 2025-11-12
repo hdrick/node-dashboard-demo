@@ -8,13 +8,20 @@ pipeline {
         ACR_CREDENTIALS = "acr-credentials"  // Jenkins credentials ID for ACR
     }
 
+        // stage('Checkout') {
+        //     steps {
+        //         sshagent(['github-ssh']) {
+        //             git branch: 'main', url: 'git@github.com:hdrick/node-dashboard-demo.git'
+        //         }
+        //     }
+        // }
+
         stage('Checkout') {
             steps {
-                sshagent(['github-ssh']) {
-                    git branch: 'main', url: 'git@github.com:hdrick/node-dashboard-demo.git'
-                }
+                git branch: 'main', url: 'https://github.com/hdrick/node-dashboard-demo.git'
             }
         }
+
 
 
         stage('Build Docker Image') {
