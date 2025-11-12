@@ -4,20 +4,22 @@ pipeline {
     environment {
         IMAGE_NAME = "node-dashboard-demo"
         CONTAINER_PORT = "3000"
-        ACR_LOGIN = "dricksacr01.azurecr.io" // replace with your ACR login server
-        ACR_CREDENTIALS = "acr-credentials" // Jenkins credentials ID for ACR
+        ACR_LOGIN = "dricksacr01.azurecr.io" // your ACR login server
+        ACR_CREDENTIALS = "acr-credentials"  // Jenkins credentials ID for ACR
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/hdrick/node-dashboard-demo.git'
+                // Use SSH URL instead of HTTPS
+                git branch: 'main', url: 'git@github.com:hdrick/node-dashboard-demo.git'
             }
         }
 
         stage('Build Docker Image') {
             steps {
                 script {
+                    // Build Docker image locally
                     docker.build("${IMAGE_NAME}:latest")
                 }
             }
@@ -27,7 +29,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry("https://${ACR_LOGIN}", "${ACR_CREDENTIALS}") {
-                        echo "Logged in to ACR"
+                        echo "Logged in to Azure Container Registry"
                     }
                 }
             }
