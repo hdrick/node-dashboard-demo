@@ -6,9 +6,10 @@ pipeline {
             steps {
                 git branch: 'main',
                     credentialsId: 'github-ssh-key',
-                    url: 'git@github.com:your-username/your-repo.git'
+                    url: 'git@github.com:hdrick/node-dashboard-demo.git'
             }
         }
+
 
         stage('Build') {
             steps {
